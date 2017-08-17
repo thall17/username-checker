@@ -4,7 +4,7 @@ require "uri"
 class SitesController < ApplicationController
 
   def index
-    username = "timjhall"
+    username = "timjhaasdflkajsdlfas;jdf;asall"
 
     #URI's
     # @github_uri = uri = URI.parse("https://github.com/#{username}")
@@ -13,6 +13,8 @@ class SitesController < ApplicationController
     #Responses
     @github_response = Net::HTTP.get_response(URI.parse("https://github.com/#{username}"))
     @linkedin_response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{username}"))
+    @twitter_response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{username}"))
+
 
   end
 
