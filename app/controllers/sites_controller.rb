@@ -15,9 +15,9 @@ class SitesController < ApplicationController
 
     @results = { 
       github: check_github(@name),
-      linkedin: "",
-      twitter: "",
-      instagram: ""
+      linkedin: check_linkedin(@name),
+      twitter: check_twitter(@name),
+      instagram: check_instagram(@name)
     }
 
 
@@ -40,6 +40,18 @@ class SitesController < ApplicationController
   private
     def check_github(name)
       return Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+    end
+
+    def check_linkedin(name)
+      return Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
+    end
+
+    def check_twitter(name)
+      return Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
+    end
+
+    def check_instagram(name)
+      return Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
     end
 
 end

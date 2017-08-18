@@ -3,7 +3,6 @@
     <div class="col-sm-3">
     </div>
     <div class="col-sm-6" style="text-align:center">
-      <p>@results.github = <%= @results[:github].code %></p>
       <!-- <h1>Enter your username:</h1>
       <p>Current username: <%= @username %></p> -->
       <!-- <div class="form-group">
@@ -37,16 +36,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Some cell</td>
-            <td>Some other cell</td>
-          </tr>
+          <% @results.each do |key, value| %>
+            <tr>
+              <td><%= key %></td>
+              <td><%= value %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
-      <p>Github Response Code: <%= @github_response.code %></p>
+<!--       <p>Github Response Code: <%= @github_response.code %></p>
       <p>LinkedIn Response Code: <%= @linkedin_response.code %></p>
       <p>Twitter Response Code: <%= @twitter_response.code %></p>
-      <p>Instagram Response Code: <%= @instagram_response.code %></p>
+      <p>Instagram Response Code: <%= @instagram_response.code %></p> -->
 
     </div>
     <!-- /.col-lg-12 -->
