@@ -17,7 +17,9 @@ class SitesController < ApplicationController
       github: check_github(@name),
       linkedin: check_linkedin(@name),
       twitter: check_twitter(@name),
-      instagram: check_instagram(@name)
+      instagram: check_instagram(@name),
+      facebook: check_instagram(@name), # Need to update
+      bitbucket: check_instagram(@name) # Need to update
     }
 
 
