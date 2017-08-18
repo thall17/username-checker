@@ -4,7 +4,11 @@ require "uri"
 class SitesController < ApplicationController
 
   def index
-    @username = params[:q]
+    if params[:username]
+      @username = params[:username]
+    else
+      @username = ""
+    end
     #URI's
     # @github_uri = uri = URI.parse("https://github.com/#{username}")
     # @linkedin_uri = uri = URI.parse("https://www.linkedin.com/in/#{username}")
@@ -16,9 +20,9 @@ class SitesController < ApplicationController
     @instagram_response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{@username}/"))
   end
 
-  def form
-    @username = "timjhall"
-    render :action => :index
-  end
+  # def form
+  #   @username = "timjhall"
+  #   render :action => :index
+  # end
 
 end

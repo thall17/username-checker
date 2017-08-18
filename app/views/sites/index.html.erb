@@ -9,9 +9,9 @@
         <!-- <div class="form-group">
           <input type="text" class="form-control" placeholder="Username..." autofocus="true">
         </div> -->
-        <%= form_tag({controller: "sites", action: "index"}, method: "post") do %>
-            <%= text_field_tag(:q) %>
-            <%= submit_tag("Submit") %>
+        <%= form_tag(controller: "sites", action: "index", method: "post") do %>
+          <%= text_field_tag :username, "", class: 'form-control' %>
+          <%= submit_tag("Submit", class: 'btn btn-default') %>
         <% end %>
       </div>
       <!-- /.col-lg-12 -->
