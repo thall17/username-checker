@@ -5,9 +5,13 @@
       </div>
       <div class="col-sm-6" style="text-align:center">
         <h1>Enter your username:</h1>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <input type="text" class="form-control" placeholder="Username..." autofocus="true">
-        </div>
+        </div> -->
+        <%= form_tag({controller: "sites", action: "index"}, method: "post") do %>
+            <%= text_field_tag(:q) %>
+            <%= submit_tag("Submit") %>
+        <% end %>
       </div>
       <!-- /.col-lg-12 -->
       <div class="col-sm-3">
