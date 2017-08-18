@@ -11,7 +11,7 @@
         </div> -->
         <%= form_tag(controller: "sites", action: "index", method: "post") do %>
           <div class="input-group">
-            <%= text_field_tag :username, "", value: @username, class: 'form-control' %>
+            <%= text_field_tag :username, "", value: @username, autofocus: true, class: 'form-control' %>
             <span class="input-group-btn">
               <button class="btn btn-secondary" type="submit">Search</button>
             </span>
