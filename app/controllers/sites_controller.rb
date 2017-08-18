@@ -45,15 +45,21 @@ class SitesController < ApplicationController
     end
 
     def check_linkedin(name)
-      return Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
+      result = ""
+      result = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
+      return result
     end
 
     def check_twitter(name)
-      return Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
+      result = ""
+      result = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
+      return result
     end
 
     def check_instagram(name)
-      return Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
+      result = ""
+      result = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
+      return result
     end
 
 end
