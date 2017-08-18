@@ -6,6 +6,9 @@ class SitesController < ApplicationController
   def index
     if params[:username]
       @username = params[:username]
+      if @username.match(/\s/)
+        @username = ""
+      end
     else
       @username = ""
     end
