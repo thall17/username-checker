@@ -25,11 +25,11 @@ class SitesController < ApplicationController
     # @github_uri = uri = URI.parse("https://github.com/#{username}")
     # @linkedin_uri = uri = URI.parse("https://www.linkedin.com/in/#{username}")
 
-    #Responses
-    @github_response = Net::HTTP.get_response(URI.parse("https://github.com/#{@name}"))
-    @linkedin_response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{@name}"))
-    @twitter_response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{@name}"))
-    @instagram_response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{@name}/"))
+    # #Responses
+    # @github_response = Net::HTTP.get_response(URI.parse("https://github.com/#{@name}"))
+    # @linkedin_response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{@name}"))
+    # @twitter_response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{@name}"))
+    # @instagram_response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{@name}/"))
   end
 
   # def form
@@ -39,7 +39,9 @@ class SitesController < ApplicationController
 
   private
     def check_github(name)
-      return Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+      result = ""
+      result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+      return result
     end
 
     def check_linkedin(name)
