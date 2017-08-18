@@ -4,16 +4,16 @@
       <div class="col-sm-3">
       </div>
       <div class="col-sm-6" style="text-align:center">
-        <h1>Enter your username:</h1>
-        <p>Current username: <%= @username %></p>
+        <!-- <h1>Enter your username:</h1>
+        <p>Current username: <%= @username %></p> -->
         <!-- <div class="form-group">
           <input type="text" class="form-control" placeholder="Username..." autofocus="true">
         </div> -->
         <%= form_tag(controller: "sites", action: "index", method: "post") do %>
           <div class="input-group">
-            <%= text_field_tag :username, "", value: @username, autofocus: true, class: 'form-control' %>
+            <%= text_field_tag :username, "", value: @username, autofocus: true, placeholder: 'Enter username...', class: 'form-control' %>
             <span class="input-group-btn">
-              <button class="btn btn-secondary" type="submit">Search</button>
+              <button class="btn btn-success" type="submit">Check Availability</button>
             </span>
           </div>
         <% end %>
