@@ -14,11 +14,13 @@ class SitesController < ApplicationController
     end
 
     @results = { 
-      "github": "",
-      "linkedin": "",
-      "twitter": "",
-      "instagram": ""
+      github: check_github(@name),
+      linkedin: "",
+      twitter: "",
+      instagram: ""
     }
+
+
     #URI's
     # @github_uri = uri = URI.parse("https://github.com/#{username}")
     # @linkedin_uri = uri = URI.parse("https://www.linkedin.com/in/#{username}")
@@ -34,5 +36,10 @@ class SitesController < ApplicationController
   #   @username = "timjhall"
   #   render :action => :index
   # end
+
+  private
+    def check_github(name)
+      return Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+    end
 
 end
