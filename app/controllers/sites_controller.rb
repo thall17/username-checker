@@ -4,8 +4,7 @@ require "uri"
 class SitesController < ApplicationController
 
   def index
-    # username = "timjhall"
-
+    @username = params[:q]
     #URI's
     # @github_uri = uri = URI.parse("https://github.com/#{username}")
     # @linkedin_uri = uri = URI.parse("https://www.linkedin.com/in/#{username}")
