@@ -32,13 +32,15 @@
         <thead>
           <tr>
             <th>Site</th>
-            <th>Availability</th>
+            <th>Code</th>
+            <th>Response</th>
           </tr>
         </thead>
         <tbody>
           <% @results.each do |key, value| %>
             <tr>
               <td><%= key %></td>
+              <td><%= value.code %></td>
               <td><%= value %></td>
             </tr>
           <% end %>
