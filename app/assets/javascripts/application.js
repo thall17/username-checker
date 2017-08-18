@@ -13,7 +13,6 @@
 //= require turbolinks
 //= require jquery3
 //= require rails-ujs
-//= require dataTables/jquery.dataTables
 //= require popper
 //= require bootstrap
 //= require_tree .
