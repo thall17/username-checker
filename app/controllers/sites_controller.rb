@@ -38,6 +38,8 @@ class SitesController < ApplicationController
   private
     def check_github(name)
       result = ""
+      if name != ""
+        
       result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
       return result
     end
