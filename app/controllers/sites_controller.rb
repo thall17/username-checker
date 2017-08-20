@@ -74,6 +74,13 @@ class SitesController < ApplicationController
 
     def check_twitter(name)
       result = ""
+      ### LinkedIn Username Rules:
+      # Your custom LinkedIn URL must contain 5-30 characters.
+      # Letters, numbers, and underscores only.
+      # It’s case-blind, so you can enter hi_there, Hi_There, or HI_THERE and they’ll all work the same (and be treated as a single account).
+      # My note: do underscores get converted to something else in URL?
+      # There is apparently no minimum-length requirement; the user a exists on Twitter. Maximum length is 15 characters.
+      # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
       result = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
       return result
     end
