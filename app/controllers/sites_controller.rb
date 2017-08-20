@@ -64,6 +64,10 @@ class SitesController < ApplicationController
 
     def check_linkedin(name)
       result = ""
+      ### LinkedIn Username Rules:
+      # Your custom LinkedIn URL must contain 5-30 characters.
+      # Letters or numbers
+      # May not include spaces, symbols, or special characters. 
       result = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
       return result
     end
