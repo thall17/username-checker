@@ -74,8 +74,7 @@ class SitesController < ApplicationController
 
     def check_twitter(name)
       result = ""
-      ### LinkedIn Username Rules:
-      # Your custom LinkedIn URL must contain 5-30 characters.
+      ### Twitter Username Rules:
       # Letters, numbers, and underscores only.
       # It’s case-blind, so you can enter hi_there, Hi_There, or HI_THERE and they’ll all work the same (and be treated as a single account).
       # My note: do underscores get converted to something else in URL?
@@ -87,6 +86,8 @@ class SitesController < ApplicationController
 
     def check_instagram(name)
       result = ""
+      ### Instagram Username Rules:
+      # Limit - 30 symbols. Username must contains only letters, numbers, periods and underscores.
       result = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
       return result
     end
