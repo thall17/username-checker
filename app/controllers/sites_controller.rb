@@ -51,6 +51,11 @@ class SitesController < ApplicationController
   private
     def check_github(name)
       result = ""
+      ### GitHub Username Rules:
+      # Github username may only contain alphanumeric characters or hyphens.
+      # Github username cannot have multiple consecutive hyphens.
+      # Github username cannot begin or end with a hyphen.
+      # Maximum is 39 characters.
       result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
       if result.code == '200'
         return "Username taken"
