@@ -5,22 +5,35 @@ class SitesController < ApplicationController
 
   def index
     if params[:name]
+      puts "params set"
       @name = params[:name]
       if @name.match(/\s/)
+        puts "in Regex"
         @name = ""
       end
     else
       @name = ""
     end
 
-    @results = { 
-      github: check_github(@name),
-      linkedin: check_linkedin(@name),
-      twitter: check_twitter(@name),
-      instagram: check_instagram(@name),
-      facebook: check_instagram(@name), # Need to update
-      bitbucket: check_instagram(@name) # Need to update
-    }
+    if @name == ""
+      @results = { 
+        github: "",
+        linkedin: "",
+        twitter: "",
+        instagram: "",
+        facebook: "",
+        bitbucket: ""
+      }
+    else
+      @results = { 
+        github: check_github(@name),
+        linkedin: check_linkedin(@name),
+        twitter: check_twitter(@name),
+        instagram: check_instagram(@name),
+        facebook: check_instagram(@name), # Need to update
+        bitbucket: check_instagram(@name) # Need to update
+      }
+    end
 
 
     #URI's
@@ -38,10 +51,10 @@ class SitesController < ApplicationController
   private
     def check_github(name)
       result = ""
-      if name != ""
-        
       result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
-      return result
+      if result.code == '200'
+        return "Username taken"
+      end
     end
 
     def check_linkedin(name)
