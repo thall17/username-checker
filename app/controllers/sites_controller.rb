@@ -87,7 +87,7 @@ class SitesController < ApplicationController
       # if anything else...
 
       # My note: do underscores get converted to something else in URL?
-      
+
       # There is apparently no minimum-length requirement; the user a exists on Twitter. Maximum length is 15 characters.
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
       response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
@@ -96,8 +96,13 @@ class SitesController < ApplicationController
 
     def check_instagram(name)
       result = ""
-      ### Instagram Username Rules:
-      # Limit - 30 symbols. Username must contains only letters, numbers, periods and underscores.
+      # if name violates any of the rules, add "Wrong format..."
+
+      # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
+      # If > 30 chars...
+
+      # if contains anytihng else besides letters, numbers, periods, underscores...
+
       response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
       return result
     end
