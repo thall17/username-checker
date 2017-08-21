@@ -59,8 +59,8 @@ class SitesController < ApplicationController
       # Maximum is 39 characters.
       # if name > 39 characters long...
 
-      result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
-      if result.code == '200'
+      response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+      if response.code == '200'
         return "Username taken"
       end
     end
@@ -71,7 +71,7 @@ class SitesController < ApplicationController
       # Your custom LinkedIn URL must contain 5-30 characters.
       # Letters or numbers
       # May not include spaces, symbols, or special characters. 
-      result = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
+      response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
       return result
     end
 
@@ -83,7 +83,7 @@ class SitesController < ApplicationController
       # My note: do underscores get converted to something else in URL?
       # There is apparently no minimum-length requirement; the user a exists on Twitter. Maximum length is 15 characters.
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
-      result = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
+      response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
       return result
     end
 
@@ -91,7 +91,7 @@ class SitesController < ApplicationController
       result = ""
       ### Instagram Username Rules:
       # Limit - 30 symbols. Username must contains only letters, numbers, periods and underscores.
-      result = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
+      response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
       return result
     end
 
