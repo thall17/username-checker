@@ -36,26 +36,29 @@ class SitesController < ApplicationController
     end
 
 
-    #URI's
-    # @github_uri = uri = URI.parse("https://github.com/#{username}")
-    # @linkedin_uri = uri = URI.parse("https://www.linkedin.com/in/#{username}")
-
-    # #Responses
-    # @github_response = Net::HTTP.get_response(URI.parse("https://github.com/#{@name}"))
-    # @linkedin_response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{@name}"))
-    # @twitter_response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{@name}"))
-    # @instagram_response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{@name}/"))
+    
   end
 
 
   private
     def check_github(name)
       result = ""
-      ### GitHub Username Rules:
+
+      # if name violates any of the rules, add "Wrong format..."
+
       # Github username may only contain alphanumeric characters or hyphens.
+      # if name contains anything else, add specifics
+
       # Github username cannot have multiple consecutive hyphens.
+      # if name has multiple hyphens, add specifics
+
       # Github username cannot begin or end with a hyphen.
+      # if name begins with hyphen...
+      # if name ends with hyphen...
+
       # Maximum is 39 characters.
+      # if name > 39 characters long...
+
       result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
       if result.code == '200'
         return "Username taken"
