@@ -6,7 +6,7 @@ class SitesController < ApplicationController
   def index
     if params[:name]
       puts "params set"
-      @name = params[:name]
+      @name = params[:name].downcase
       if @name.match(/\s/)
         puts "in Regex"
         @name = ""
