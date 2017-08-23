@@ -55,11 +55,14 @@ class SitesController < ApplicationController
       # Maximum is 39 characters.
       if name.length > 39
         result << "Username must be less than 40 characters long."
-      result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
-      if result.code == '200'
-
-        return "Username taken"
       end
+      response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+      if response.code == '200'
+
+        result = "Username taken"
+      end
+
+      return result
     end
 
     def check_linkedin(name)
@@ -68,6 +71,9 @@ class SitesController < ApplicationController
 
       # Your custom LinkedIn URL must contain 5-30 characters.
       # if wrong length...
+      if name.length > 30 or name.length < 5
+        result << "Username must be between 5 and 30 characters long."
+      end
 
       # Letters or numbers
       # if anything else...
