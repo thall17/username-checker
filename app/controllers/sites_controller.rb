@@ -41,8 +41,8 @@ class SitesController < ApplicationController
     def check_github(name)
       result = ""
 
-      # Set booleans for each condition of github username
-      too_shoort_or_long = (name.length <= 0 or name.length > 39)
+      # Set booleans for each condition of username
+      too_shoort_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
       non_alphanum_or_hyphen = false # Github username may only contain alphanumeric characters or hyphens.
       consecutive_hypens = false # Github username cannot have multiple consecutive hyphens.
@@ -76,7 +76,6 @@ class SitesController < ApplicationController
     def check_linkedin(name)
       result = ""
       # if name violates any of the rules, add "Wrong format..."
-
       # Your custom LinkedIn URL must contain 5-30 characters.
       # if wrong length...
       # if name.length > 30 or name.length < 5
@@ -85,9 +84,20 @@ class SitesController < ApplicationController
 
       # Letters or numbers
       # if anything else...
+      too_shoort_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
 
-      response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
-      result = response
+      if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
+        result << "Wrong format."
+        if too_shoort_or_long
+          result << " Must be between 5 and 30 chars."
+        end
+      else
+        if response.code == '200'
+          result = "Username taken"
+        else
+          result = "Available"
+        end
+      end
       return result
     end
 
