@@ -86,7 +86,7 @@ class SitesController < ApplicationController
       # if anything else...
       too_shoort_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
 
-      if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
+      if too_shoort_or_long
         result << "Wrong format."
         if too_shoort_or_long
           result << " Must be between 5 and 30 chars."
@@ -115,8 +115,21 @@ class SitesController < ApplicationController
       #   result << "Username must be less than 16 characters long."
       # end
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
-      response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
-      result = response
+      too_shoort_or_long = (name.length > 15) # Must be a certain length.
+
+
+      if too_shoort_or_long
+        result << "Wrong format."
+        if too_shoort_or_long
+          result << " Must be less than 16 characters."
+        end
+      else
+        if response.code == '200'
+          result = "Username taken"
+        else
+          result = "Available"
+        end
+      end
       return result
     end
 
