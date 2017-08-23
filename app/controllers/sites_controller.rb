@@ -34,9 +34,6 @@ class SitesController < ApplicationController
         bitbucket: check_instagram(@name) # Need to update
       }
     end
-
-
-    
   end
 
 
@@ -45,8 +42,8 @@ class SitesController < ApplicationController
       result = ""
 
       # Set booleans for each condition of github username
-      too_shoort_or_long = 0 < name.length < 39
-      bookend_hyphen = name[0] == "-" or name[-1] == "-" # Cannot begin or end with a hyphen.
+      too_shoort_or_long = (name.length <= 0 or name.length > 39)
+      bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
       non_alphanum_or_hyphen = false # Github username may only contain alphanumeric characters or hyphens.
       consecutive_hypens = false # Github username cannot have multiple consecutive hyphens.
 
@@ -125,6 +122,7 @@ class SitesController < ApplicationController
 
       response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
       result = response
+      return result
     end
 
 end
