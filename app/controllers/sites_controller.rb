@@ -53,9 +53,14 @@ class SitesController < ApplicationController
       result = ""
       ### GitHub Username Rules:
       # Github username may only contain alphanumeric characters or hyphens.
+
       # Github username cannot have multiple consecutive hyphens.
+
       # Github username cannot begin or end with a hyphen.
+
       # Maximum is 39 characters.
+      if name.length > 39
+        result << "Username must be less than 40 characters long."
       result = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
       if result.code == '200'
         return "Username taken"
