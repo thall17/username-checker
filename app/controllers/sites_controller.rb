@@ -65,6 +65,8 @@ class SitesController < ApplicationController
         response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
         if response.code == '200'
           result = "Username taken"
+        else
+          result = "Available"
         end
       end
 
