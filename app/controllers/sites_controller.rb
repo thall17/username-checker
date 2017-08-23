@@ -106,6 +106,9 @@ class SitesController < ApplicationController
 
       # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
       # If > 30 chars...
+      if name.length > 30
+        result << "Max length = 30 characters."
+      end
 
       # if contains anytihng else besides letters, numbers, periods, underscores...
 
