@@ -92,6 +92,9 @@ class SitesController < ApplicationController
       # My note: do underscores get converted to something else in URL?
 
       # There is apparently no minimum-length requirement; the user a exists on Twitter. Maximum length is 15 characters.
+      if name.length > 15
+        result << "Username must be less than 16 characters long."
+      end
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
       response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
       return result
