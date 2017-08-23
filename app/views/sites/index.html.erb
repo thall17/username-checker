@@ -41,7 +41,11 @@
             <tr>
               <td><%= key %></td>
               <td></td>
-              <td><%= value %></td>
+              <% if value == "Available" %>
+                <td style="color:green"><%= value %></td>
+              <% else %>
+                <td style="color:red"><%= value %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
