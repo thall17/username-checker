@@ -44,22 +44,31 @@ class SitesController < ApplicationController
     def check_github(name)
       result = ""
 
-      # if name violates any of the rules, add "Wrong format..."
+      # Set booleans for each condition of github username
+      too_shoort_or_long = 0 < name.length < 39
+      bookend_hyphen = name[0] == "-" or name[-1] == "-" # Cannot begin or end with a hyphen.
+      non_alphanum_or_hyphen = false # Github username may only contain alphanumeric characters or hyphens.
+      consecutive_hypens = false # Github username cannot have multiple consecutive hyphens.
 
-      # Github username may only contain alphanumeric characters or hyphens.
-
-      # Github username cannot have multiple consecutive hyphens.
-
-      # Github username cannot begin or end with a hyphen.
-
-      # Maximum is 39 characters.
-      if name.length > 39
-        result << "Username must be less than 40 characters long."
-      end
-      response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
-      if response.code == '200'
-
-        result = "Username taken"
+      if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
+        result << "Wrong format."
+        if too_shoort_or_long
+          result << " Must be between 1 and 39 chars."
+        end
+        if bookend_hyphen
+          result << " Cannot start or end with a hyphen."
+        end
+        if non_alphanum_or_hyphen
+          result << " Must only contain alphanumeric characters or hyphens."
+        end
+        if consecutive_hypens
+          result << " Cannot have consecutive hyphens"
+        end
+      else
+        response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
+        if response.code == '200'
+          result = "Username taken"
+        end
       end
 
       return result
@@ -71,14 +80,15 @@ class SitesController < ApplicationController
 
       # Your custom LinkedIn URL must contain 5-30 characters.
       # if wrong length...
-      if name.length > 30 or name.length < 5
-        result << "Username must be between 5 and 30 characters long."
-      end
+      # if name.length > 30 or name.length < 5
+      #   result << "Username must be between 5 and 30 characters long."
+      # end
 
       # Letters or numbers
       # if anything else...
 
       response = Net::HTTP.get_response(URI.parse("https://www.linkedin.com/in/#{name}"))
+      result = response
       return result
     end
 
@@ -92,11 +102,12 @@ class SitesController < ApplicationController
       # My note: do underscores get converted to something else in URL?
 
       # There is apparently no minimum-length requirement; the user a exists on Twitter. Maximum length is 15 characters.
-      if name.length > 15
-        result << "Username must be less than 16 characters long."
-      end
+      # if name.length > 15
+      #   result << "Username must be less than 16 characters long."
+      # end
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
       response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
+      result = response
       return result
     end
 
@@ -106,14 +117,14 @@ class SitesController < ApplicationController
 
       # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
       # If > 30 chars...
-      if name.length > 30
-        result << "Max length = 30 characters."
-      end
+      # if name.length > 30
+      #   result << "Max length = 30 characters."
+      # end
 
       # if contains anytihng else besides letters, numbers, periods, underscores...
 
       response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
-      return result
+      result = response
     end
 
 end
