@@ -76,11 +76,6 @@ class SitesController < ApplicationController
     def check_linkedin(name)
       result = ""
       # if name violates any of the rules, add "Wrong format..."
-      # Your custom LinkedIn URL must contain 5-30 characters.
-      # if wrong length...
-      # if name.length > 30 or name.length < 5
-      #   result << "Username must be between 5 and 30 characters long."
-      # end
 
       # Letters or numbers
       # if anything else...
