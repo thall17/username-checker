@@ -30,8 +30,8 @@ class SitesController < ApplicationController
         linkedin: check_linkedin(@name),
         twitter: check_twitter(@name),
         instagram: check_instagram(@name),
-        facebook: check_instagram(@name), # Need to update
-        bitbucket: check_instagram(@name) # Need to update
+        facebook: check_facebook(@name), # Need to update
+        bitbucket: check_bitbucket(@name) # Need to update
       }
     end
   end
@@ -129,6 +129,40 @@ class SitesController < ApplicationController
     end
 
     def check_instagram(name)
+      result = ""
+      # if name violates any of the rules, add "Wrong format..."
+
+      # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
+      # If > 30 chars...
+      # if name.length > 30
+      #   result << "Max length = 30 characters."
+      # end
+
+      # if contains anytihng else besides letters, numbers, periods, underscores...
+
+      response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
+      result = response
+      return result
+    end
+  
+    def check_facebook(name)
+      result = ""
+      # if name violates any of the rules, add "Wrong format..."
+
+      # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
+      # If > 30 chars...
+      # if name.length > 30
+      #   result << "Max length = 30 characters."
+      # end
+
+      # if contains anytihng else besides letters, numbers, periods, underscores...
+
+      response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
+      result = response
+      return result
+    end
+  
+    def check_bitbucket(name)
       result = ""
       # if name violates any of the rules, add "Wrong format..."
 
