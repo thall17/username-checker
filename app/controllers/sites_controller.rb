@@ -44,8 +44,8 @@ class SitesController < ApplicationController
       # Set booleans for each condition of username
       too_shoort_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
-      non_alphanum_or_hyphen = false # Github username may only contain alphanumeric characters or hyphens.
-      consecutive_hypens = false # Github username cannot have multiple consecutive hyphens.
+      non_alphanum_or_hyphen = false # TODO: Github username may only contain alphanumeric characters or hyphens.
+      consecutive_hypens = false # TODO: Github username cannot have multiple consecutive hyphens.
 
       if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
         result << "Wrong format."
