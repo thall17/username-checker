@@ -41,7 +41,7 @@ class SitesController < ApplicationController
     def check_github(name)
       result = ""
 
-      # Set booleans for each condition of username
+      # Set booleans for each rule
       too_shoort_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
 
@@ -51,6 +51,7 @@ class SitesController < ApplicationController
       ch_regex = /--+/
       consecutive_hypens = name.validate(ch_regex) # Github username cannot have multiple consecutive hyphens.
 
+      # Print errors for violated rules:
       if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
         result << "Wrong format."
         if too_shoort_or_long
