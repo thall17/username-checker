@@ -49,7 +49,9 @@ class SitesController < ApplicationController
 
       # Github username may only contain alphanumeric characters or hyphens.
       anh_regex = /^[a-zA-Z0-9]*$/
-      if (anh_regex =~ name).nil?
+      thing = anh_regex =~ name
+      print ("regex result is #{thing}")
+      if (anh_regex =~ name).is_a? Integer
         non_alphanum_or_hyphen = false
       else
         print"in the else"
