@@ -134,14 +134,16 @@ class SitesController < ApplicationController
       too_shoort_or_long = (name.length > 15) # Must be a certain length.
 
       anu_regex = /^[a-zA-Z0-9_]*$/
+      regex_result = anu_regex =~ name
 
-      if (anu_regex =~ name).is_a? Integer
+      if (regex_result.is_a? Integer) and (regex_result != 0)
+        print("regex_result = #{regex_result}")
         non_alphanum_or_underscore = false
       else
         non_alphanum_or_underscore = true
       end
 
-      if too_shoort_or_long
+      if too_shoort_or_long or non_alphanum_or_underscore
         result << "Wrong format."
         if too_shoort_or_long
           result << " Must be less than 16 characters."
