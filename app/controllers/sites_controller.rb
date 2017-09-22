@@ -15,6 +15,7 @@ class SitesController < ApplicationController
       @name = ""
     end
 
+    # If form field is blank, don't return anything in the table (show an empty string).
     if @name == ""
       @results = { 
         github: "",
@@ -24,6 +25,7 @@ class SitesController < ApplicationController
         facebook: "",
         bitbucket: ""
       }
+    # If form field is not blank, validate it per each site's rules to populate each row in the table.
     else
       @results = { 
         github: check_github(@name),
@@ -45,11 +47,20 @@ class SitesController < ApplicationController
       too_shoort_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
 
+      # Github username may only contain alphanumeric characters or hyphens.
       anh_regex = /^[\w-]+$/
-      non_alphanum_or_hyphen = name.validate(anh_regex) # => true # Github username may only contain alphanumeric characters or hyphens.
+      if (anh_regex =~ name).nil?
+        non_alphanum_or_hyphen = true
+      else
+        non_alphanum_or_hyphen = false
 
+      # Github username cannot have multiple consecutive hyphens.
       ch_regex = /--+/
-      consecutive_hypens = name.validate(ch_regex) # Github username cannot have multiple consecutive hyphens.
+      consecutive_hypens = name.validate(ch_regex)
+      if (ch_regex =~ name).nil?
+        non_alphanum_or_hyphen = true
+      else
+        non_alphanum_or_hyphen = false
 
       # Print errors for violated rules:
       if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
