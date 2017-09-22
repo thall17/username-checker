@@ -60,10 +60,10 @@ class SitesController < ApplicationController
 
       # Github username cannot have multiple consecutive hyphens.
       ch_regex = /--+/
-      if (ch_regex =~ name).nil?
-        consecutive_hypens = false
-      else
+      if (ch_regex =~ name).is_a? Integer
         consecutive_hypens = true
+      else
+        consecutive_hypens = false
       end
 
       # Print errors for violated rules:
