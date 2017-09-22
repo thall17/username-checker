@@ -48,19 +48,21 @@ class SitesController < ApplicationController
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
 
       # Github username may only contain alphanumeric characters or hyphens.
-      anh_regex = /^[\w-]+$/
+      anh_regex = /^[a-zA-Z0-9]*$/
       if (anh_regex =~ name).nil?
-        non_alphanum_or_hyphen = true
-      else
         non_alphanum_or_hyphen = false
+      else
+        print"in the else"
+        non_alphanum_or_hyphen = true
+      end
 
       # Github username cannot have multiple consecutive hyphens.
       ch_regex = /--+/
-      consecutive_hypens = name.validate(ch_regex)
       if (ch_regex =~ name).nil?
-        non_alphanum_or_hyphen = true
+        consecutive_hypens = false
       else
-        non_alphanum_or_hyphen = false
+        consecutive_hypens = true
+      end
 
       # Print errors for violated rules:
       if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
