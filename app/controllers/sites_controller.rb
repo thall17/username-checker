@@ -48,7 +48,7 @@ class SitesController < ApplicationController
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
 
       # Github username may only contain alphanumeric characters or hyphens.
-      anh_regex = /^[a-zA-Z0-9]*$/
+      anh_regex = /^[a-zA-Z0-9-]*$/
       thing = anh_regex =~ name
       print ("regex result is #{thing}")
       if (anh_regex =~ name).is_a? Integer
@@ -79,7 +79,7 @@ class SitesController < ApplicationController
           result << " Must only contain alphanumeric characters or hyphens."
         end
         if consecutive_hypens
-          result << " Cannot have consecutive hyphens"
+          result << " Cannot have consecutive hyphens."
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
