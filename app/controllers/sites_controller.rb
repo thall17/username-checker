@@ -49,8 +49,6 @@ class SitesController < ApplicationController
 
       # Github username may only contain alphanumeric characters or hyphens.
       anh_regex = /^[a-zA-Z0-9-]*$/
-      thing = anh_regex =~ name
-      print ("regex result is #{thing}")
       if (anh_regex =~ name).is_a? Integer
         non_alphanum_or_hyphen = false
       else
@@ -101,6 +99,9 @@ class SitesController < ApplicationController
       # if anything else...
       too_shoort_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
 
+      
+
+
       if too_shoort_or_long
         result << "Wrong format."
         if too_shoort_or_long
@@ -132,11 +133,21 @@ class SitesController < ApplicationController
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
       too_shoort_or_long = (name.length > 15) # Must be a certain length.
 
+      anu_regex = /^[a-zA-Z0-9_]*$/
+
+      if (anu_regex =~ name).is_a? Integer
+        non_alphanum_or_underscore = false
+      else
+        non_alphanum_or_underscore = true
+      end
 
       if too_shoort_or_long
         result << "Wrong format."
         if too_shoort_or_long
           result << " Must be less than 16 characters."
+        end
+        if non_alphanum_or_underscore
+          result << " Must only contain alphanumeric characters or underscores."
         end
       else
         if response.code == '200'
