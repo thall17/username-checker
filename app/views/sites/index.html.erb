@@ -31,20 +31,20 @@
       <table id="results" class="table table-responsive borderless">
         <thead>
           <tr>
+            <th>Icon</th>
             <th>Site</th>
-            <th>Code</th>
             <th>Response</th>
           </tr>
         </thead>
         <tbody>
           <% @results.each do |key, value| %>
             <tr>
-              <td><%= key %></td>
               <td></td>
-              <% if value == "Available" %>
-                <td style="color:green"><%= value %></td>
+              <td><%= key %></td>
+              <% if value[:result] == "Available" %>
+                <td style="color:green"><%= value[:result] %></td>
               <% else %>
-                <td style="color:red"><%= value %></td>
+                <td style="color:red"><%= value[:result] %></td>
               <% end %>
             </tr>
           <% end %>
