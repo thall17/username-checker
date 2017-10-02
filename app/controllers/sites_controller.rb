@@ -15,6 +15,7 @@ class SitesController < ApplicationController
       @name = ""
     end
 
+    # If form field is blank, don't return anything in the table (show an empty string).
     if @name == ""
       @results = { 
         GitHub: "",
@@ -24,6 +25,7 @@ class SitesController < ApplicationController
         Facebook: "",
         Bitbucket: ""
       }
+    # If form field is not blank, validate it per each site's rules to populate each row in the table.
     else
       @results = { 
         GitHub: check_github(@name),
@@ -46,11 +48,22 @@ class SitesController < ApplicationController
       too_shoort_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
 
-      anh_regex = /^[\w-]+$/
-      non_alphanum_or_hyphen = name.validate(anh_regex) # => true # Github username may only contain alphanumeric characters or hyphens.
+      # Github username may only contain alphanumeric characters or hyphens.
+      anh_regex = /^[a-zA-Z0-9-]*$/
+      if (anh_regex =~ name).is_a? Integer
+        non_alphanum_or_hyphen = false
+      else
+        print"in the else"
+        non_alphanum_or_hyphen = true
+      end
 
+      # Github username cannot have multiple consecutive hyphens.
       ch_regex = /--+/
-      consecutive_hypens = name.validate(ch_regex) # Github username cannot have multiple consecutive hyphens.
+      if (ch_regex =~ name).is_a? Integer
+        consecutive_hypens = true
+      else
+        consecutive_hypens = false
+      end
 
       # Print errors for violated rules:
       if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
@@ -65,7 +78,7 @@ class SitesController < ApplicationController
           result << " Must only contain alphanumeric characters or hyphens."
         end
         if consecutive_hypens
-          result << " Cannot have consecutive hyphens"
+          result << " Cannot have consecutive hyphens."
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
@@ -86,6 +99,9 @@ class SitesController < ApplicationController
       # Letters or numbers
       # if anything else...
       too_shoort_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
+
+      
+
 
       if too_shoort_or_long
         result << "Wrong format."
@@ -118,11 +134,23 @@ class SitesController < ApplicationController
       # There is also no requirement that the name contain letters at all; the user 69 exists, as does a user whose name I can’t pronounce.
       too_shoort_or_long = (name.length > 15) # Must be a certain length.
 
+      anu_regex = /^[a-zA-Z0-9_]*$/
+      regex_result = anu_regex =~ name
 
-      if too_shoort_or_long
+      if (regex_result.is_a? Integer) and (regex_result != 0)
+        print("regex_result = #{regex_result}")
+        non_alphanum_or_underscore = false
+      else
+        non_alphanum_or_underscore = true
+      end
+
+      if too_shoort_or_long or non_alphanum_or_underscore
         result << "Wrong format."
         if too_shoort_or_long
           result << " Must be less than 16 characters."
+        end
+        if non_alphanum_or_underscore
+          result << " Must only contain alphanumeric characters or underscores."
         end
       else
         if response.code == '200'
