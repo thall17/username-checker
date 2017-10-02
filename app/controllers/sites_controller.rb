@@ -17,23 +17,24 @@ class SitesController < ApplicationController
 
     if @name == ""
       @results = { 
-        github: "",
-        linkedin: "",
-        twitter: "",
-        instagram: "",
-        facebook: "",
-        bitbucket: ""
+        GitHub: "",
+        LinkedIn: "",
+        Twitter: "",
+        Instagram: "",
+        Facebook: "",
+        Bitbucket: ""
       }
     else
       @results = { 
-        github: check_github(@name),
-        linkedin: check_linkedin(@name),
-        twitter: check_twitter(@name),
-        instagram: check_instagram(@name),
-        facebook: check_facebook(@name), # Need to update
-        bitbucket: check_bitbucket(@name) # Need to update
+        GitHub: check_github(@name),
+        LinkedIn: check_linkedin(@name),
+        Twitter: check_twitter(@name),
+        Instagram: check_instagram(@name),
+        Facebook: check_facebook(@name), # Need to update
+        Bitbucket: check_bitbucket(@name) # Need to update
       }
     end
+
   end
 
 
