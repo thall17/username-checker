@@ -80,7 +80,7 @@ class SitesController < ApplicationController
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
-        if response.code == '200'
+        if ['200', '301', '302'].include? response.code
           result = "Username taken"
         else
           result = "Available"
@@ -141,11 +141,11 @@ class SitesController < ApplicationController
           result << " Must be less than 16 characters."
         end
         if non_alphanum_or_underscore
-          result << " Must only contain alphanumeric characters or underscores."
+          result << " Must only contain alphanumeric characters and underscores."
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
-        if ['200', '302'].include? response.code
+        if ['200', '301', '302'].include? response.code
           result = "Username taken"
         else
           result = "Available"
