@@ -208,7 +208,7 @@ class SitesController < ApplicationController
       end
 
       # Check if alphanumeric/undercores/periods only
-      extension_regex = /\.com|\.net|\.gov/
+      extension_regex = /\.com|\.net|\.gov|\.io/
       regex_result = extension_regex =~ name
       print " fb regex_result = #{regex_result}"
       if (regex_result.is_a? Integer)
