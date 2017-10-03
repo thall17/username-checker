@@ -39,7 +39,9 @@
         <tbody>
           <% @results.each do |key, value| %>
             <tr>
-              <td></td>
+              <td>
+                <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+              </td>
               <td><%= key %></td>
               <% if value[:result] == "Available" %>
                 <td style="color:green"><%= value[:result] %></td>

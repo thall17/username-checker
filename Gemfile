@@ -24,7 +24,7 @@ gem 'jquery-rails'
 # gem 'therubyracer', platforms: :ruby
 
 # Data tables
-gem 'jquery-datatables-rails', '~> 3.4.0'
+# gem 'jquery-datatables-rails', '~> 3.4.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
