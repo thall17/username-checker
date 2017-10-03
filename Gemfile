@@ -16,6 +16,8 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 # Bootstrap css/js
 gem 'bootstrap', '~> 4.0.0.alpha'
+# Glyphicons
+gem 'bootstrap-glyphicons'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # JQuery
