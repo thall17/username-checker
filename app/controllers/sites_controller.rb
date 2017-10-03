@@ -5,10 +5,8 @@ class SitesController < ApplicationController
 
   def index
     if params[:name]
-      puts "params set"
       @name = params[:name].downcase
       if @name.match(/\s/)
-        puts "in Regex"
         @name = ""
       end
     else
@@ -18,22 +16,22 @@ class SitesController < ApplicationController
     # If form field is blank, don't return anything in the table (show an empty string).
     if @name == ""
       @results = { 
-        GitHub: {result: ""},
-        LinkedIn: {result: ""},
-        Twitter: {result: ""},
-        Instagram: {result: ""},
-        Facebook: {result: ""},
-        Bitbucket: {result: ""}
+        GitHub: {icon: "", result: ""},
+        LinkedIn: {icon: "", result: ""},
+        Twitter: {icon: "", result: ""},
+        Instagram: {icon: "", result: ""},
+        Facebook: {icon: "", result: ""},
+        Bitbucket: {icon: "", result: ""}
       }
     # If form field is not blank, validate it per each site's rules to populate each row in the table.
     else
       @results = { 
-        GitHub: {result: check_github(@name)},
-        LinkedIn: {result: check_linkedin(@name)},
-        Twitter: {result: check_twitter(@name)},
-        Instagram: {result: check_instagram(@name)},
-        Facebook: {result: check_facebook(@name)},
-        Bitbucket: {result: check_bitbucket(@name)}
+        GitHub: {icon: "", result: check_github(@name)},
+        LinkedIn: {ricon: "", esult: check_linkedin(@name)},
+        Twitter: {ricon: "", esult: check_twitter(@name)},
+        Instagram: {icon: "", result: check_instagram(@name)},
+        Facebook: {icon: "", result: check_facebook(@name)},
+        Bitbucket: {icon: "", result: check_bitbucket(@name)}
       }
     end
 
