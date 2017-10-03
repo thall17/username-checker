@@ -126,7 +126,6 @@ class SitesController < ApplicationController
       # Check if alphanumeric/undercores only
       anu_regex = /^[a-zA-Z0-9_]*$/
       regex_result = anu_regex =~ name
-      print("twitter regex_result = #{regex_result}")
 
       if (regex_result.is_a? Integer)
         non_alphanum_or_underscore = false
@@ -166,7 +165,6 @@ class SitesController < ApplicationController
       anup_regex = /^[a-zA-Z0-9_\.]*$/
       regex_result = anup_regex =~ name
       if (regex_result.is_a? Integer)
-        print("regex_result = #{regex_result}")
         non_alphanum_or_underscore_or_period = false
       else
         non_alphanum_or_underscore_or_period = true
@@ -183,7 +181,6 @@ class SitesController < ApplicationController
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
-        print "response.code = #{response.code}"
 
         if ['200', '301', '302'].include? response.code
           result = "Username taken"
@@ -195,19 +192,55 @@ class SitesController < ApplicationController
     end
   
     def check_facebook(name)
+
       result = ""
-      # if name violates any of the rules, add "Wrong format..."
 
-      # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
-      # If > 30 chars...
-      # if name.length > 30
-      #   result << "Max length = 30 characters."
-      # end
+      # Check if length is okay
+      too_short_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
 
-      # if contains anytihng else besides letters, numbers, periods, underscores...
+      # Check if alphanumeric/undercores/periods only
+      anp_regex = /^[a-zA-Z0-9\.]*$/
+      regex_result = anp_regex =~ name
+      if (regex_result.is_a? Integer)
+        non_alphanum_or_period = false
+      else
+        non_alphanum_or_period = true
+      end
 
-      response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
-      result = response
+      # Check if alphanumeric/undercores/periods only
+      extension_regex = /\.com|\.net|\.gov/
+      regex_result = extension_regex =~ name
+      print " fb regex_result = #{regex_result}"
+      if (regex_result.is_a? Integer)
+        print "setting non_extension to true"
+        non_extension = true
+      else
+        non_extension = false
+      end
+
+      # Create result string based on rule checks
+      if too_short_or_long or non_alphanum_or_period or non_extension
+        result << "Wrong format."
+        if too_short_or_long
+          result << " Must be between 5 and 16 characters long."
+        end
+        if non_alphanum_or_period
+          print "HERE"
+
+          result << " Must only contain alphanumeric characters, underscores, and periods."
+        end
+        if non_extension
+          result << " Cannot contain common extensions like '.com', '.net', etc."
+        end
+      else
+        response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
+
+        if ['200', '301', '302'].include? response.code
+          result = "Username taken"
+        else
+          result = "Available"
+        end
+      end
       return result
     end
   
