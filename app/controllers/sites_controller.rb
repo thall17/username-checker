@@ -145,7 +145,6 @@ class SitesController < ApplicationController
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
-        print "response.code = #{response.code}"
         if ['200', '302'].include? response.code
           result = "Username taken"
         else
@@ -166,7 +165,7 @@ class SitesController < ApplicationController
       # Check if alphanumeric/undercores/periods only
       anup_regex = /^[a-zA-Z0-9_\.]*$/
       regex_result = anup_regex =~ name
-      if (regex_result.is_a? Integer) and (regex_result != 0)
+      if (regex_result.is_a? Integer)
         print("regex_result = #{regex_result}")
         non_alphanum_or_underscore_or_period = false
       else
@@ -183,8 +182,10 @@ class SitesController < ApplicationController
           result << " Must only contain alphanumeric characters, underscores, and periods."
         end
       else
-        response = Net::HTTP.get_response(URI.parse("https://instagram.com/#{name}"))
-        if response.code == '200'
+        response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
+        print "response.code = #{response.code}"
+
+        if ['200', '301', '302'].include? response.code
           result = "Username taken"
         else
           result = "Available"
