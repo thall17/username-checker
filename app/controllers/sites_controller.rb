@@ -27,8 +27,8 @@ class SitesController < ApplicationController
     else
       @results = { 
         GitHub: {icon: "fa-github", result: check_github(@name)},
-        LinkedIn: {icon: "fa-linkedin", esult: check_linkedin(@name)},
-        Twitter: {icon: "fa-twitter", esult: check_twitter(@name)},
+        LinkedIn: {icon: "fa-linkedin", result: check_linkedin(@name)},
+        Twitter: {icon: "fa-twitter", result: check_twitter(@name)},
         Instagram: {icon: "fa-instagram", result: check_instagram(@name)},
         Facebook: {icon: "fa-facebook", result: check_facebook(@name)},
         Bitbucket: {icon: "fa-bitbucket", result: check_bitbucket(@name)}
@@ -43,7 +43,7 @@ class SitesController < ApplicationController
       result = ""
 
       # Set booleans for each rule
-      too_shoort_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
+      too_short_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
       bookend_hyphen = (name[0] == "-" or name[-1] == "-") # Cannot begin or end with a hyphen.
 
       # Github username may only contain alphanumeric characters or hyphens.
@@ -64,9 +64,9 @@ class SitesController < ApplicationController
       end
 
       # Print errors for violated rules:
-      if too_shoort_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
+      if too_short_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
         result << "Wrong format."
-        if too_shoort_or_long
+        if too_short_or_long
           result << " Must be between 1 and 39 chars."
         end
         if bookend_hyphen
@@ -96,12 +96,12 @@ class SitesController < ApplicationController
 
       # Letters or numbers
       # if anything else...
-      too_shoort_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
+      too_short_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
 
       
-      if too_shoort_or_long
+      if too_short_or_long
         result << "Wrong format."
-        if too_shoort_or_long
+        if too_short_or_long
           result << " Must be between 5 and 30 chars."
         end
       else
@@ -121,22 +121,23 @@ class SitesController < ApplicationController
       result = ""
 
       # Check if length is okay
-      too_shoort_or_long = (name.length > 15) # Must be a certain length.
+      too_short_or_long = (name.length > 15) # Must be a certain length.
 
       # Check if alphanumeric/undercores only
       anu_regex = /^[a-zA-Z0-9_]*$/
       regex_result = anu_regex =~ name
-      if (regex_result.is_a? Integer) and (regex_result != 0)
-        print("regex_result = #{regex_result}")
+      print("twitter regex_result = #{regex_result}")
+
+      if (regex_result.is_a? Integer)
         non_alphanum_or_underscore = false
       else
         non_alphanum_or_underscore = true
       end
 
       # Create result string based on rule checks
-      if too_shoort_or_long or non_alphanum_or_underscore
+      if too_short_or_long or non_alphanum_or_underscore
         result << "Wrong format."
-        if too_shoort_or_long
+        if too_short_or_long
           result << " Must be less than 16 characters."
         end
         if non_alphanum_or_underscore
@@ -144,7 +145,8 @@ class SitesController < ApplicationController
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
-        if response.code == '200'
+        print "response.code = #{response.code}"
+        if ['200', '302'].include? response.code
           result = "Username taken"
         else
           result = "Available"
@@ -159,26 +161,26 @@ class SitesController < ApplicationController
       result = ""
 
       # Check if length is okay
-      too_shoort_or_long = (name.length > 30) # Must be a certain length.
+      too_short_or_long = (name.length > 30) # Must be a certain length.
 
-      # Check if alphanumeric/undercores only
-      anu_regex = /^[a-zA-Z0-9_]*$/
-      regex_result = anu_regex =~ name
+      # Check if alphanumeric/undercores/periods only
+      anup_regex = /^[a-zA-Z0-9_\.]*$/
+      regex_result = anup_regex =~ name
       if (regex_result.is_a? Integer) and (regex_result != 0)
         print("regex_result = #{regex_result}")
-        non_alphanum_or_underscore = false
+        non_alphanum_or_underscore_or_period = false
       else
-        non_alphanum_or_underscore = true
+        non_alphanum_or_underscore_or_period = true
       end
 
       # Create result string based on rule checks
-      if too_shoort_or_long or non_alphanum_or_underscore
+      if too_short_or_long or non_alphanum_or_underscore_or_period
         result << "Wrong format."
-        if too_shoort_or_long
+        if too_short_or_long
           result << " Must be less than 16 characters."
         end
-        if non_alphanum_or_underscore
-          result << " Must only contain alphanumeric characters or underscores."
+        if non_alphanum_or_underscore_or_period
+          result << " Must only contain alphanumeric characters, underscores, and periods."
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://instagram.com/#{name}"))
