@@ -40,7 +40,8 @@
           <% @results.each do |key, value| %>
             <tr>
               <td>
-                <span class="glyphicon glyphicon-github" aria-hidden="true"></span>
+                <!-- <span class="glyphicon glyphicon-github" aria-hidden="true"></span> -->
+                <i class="fa <%= value[:icon] %>"></i>
               </td>
               <td><%= key %></td>
               <% if value[:result] == "Available" %>
