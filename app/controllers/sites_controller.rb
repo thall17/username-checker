@@ -73,7 +73,7 @@ class SitesController < ApplicationController
           result << " Cannot start or end with a hyphen."
         end
         if non_alphanum_or_hyphen
-          result << " Must only contain alphanumeric characters or hyphens."
+          result << " Must only contain alphanumeric characters and hyphens."
         end
         if consecutive_hypens
           result << " Cannot have consecutive hyphens."
