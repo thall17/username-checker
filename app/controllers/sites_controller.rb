@@ -16,12 +16,12 @@ class SitesController < ApplicationController
     # If form field is blank, don't return anything in the table (show an empty string).
     if @name == ""
       @results = { 
-        GitHub: {icon: "fa-github", result: ""},
-        LinkedIn: {icon: "fa-linkedin", result: ""},
-        Twitter: {icon: "fa-twitter", result: ""},
-        Instagram: {icon: "fa-instagram", result: ""},
-        Facebook: {icon: "fa-facebook", result: ""},
-        Bitbucket: {icon: "fa-bitbucket", result: ""}
+        GitHub: {icon: "fa-github", result: [""]},
+        LinkedIn: {icon: "fa-linkedin", result: [""]},
+        Twitter: {icon: "fa-twitter", result: [""]},
+        Instagram: {icon: "fa-instagram", result: [""]},
+        Facebook: {icon: "fa-facebook", result: [""]},
+        Bitbucket: {icon: "fa-bitbucket", result: [""]}
       }
     # If form field is not blank, validate it per each site's rules to populate each row in the table.
     else
@@ -40,7 +40,7 @@ class SitesController < ApplicationController
 
   private
     def check_github(name)
-      result = ""
+      result = []
 
       # Set booleans for each rule
       too_short_or_long = (name.length <= 0 or name.length > 39) # Must be a certain length.
@@ -51,7 +51,7 @@ class SitesController < ApplicationController
       if (anh_regex =~ name).is_a? Integer
         non_alphanum_or_hyphen = false
       else
-        print"in the else"
+        print "in the else"
         non_alphanum_or_hyphen = true
       end
 
@@ -81,9 +81,9 @@ class SitesController < ApplicationController
       else
         response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
         if ['200', '301', '302'].include? response.code
-          result = "Username taken."
+          result << "Username taken"
         else
-          result = "Available"
+          result << "Available"
         end
       end
 
@@ -91,7 +91,7 @@ class SitesController < ApplicationController
     end
 
     def check_linkedin(name)
-      result = ""
+      result = []
       # if name violates any of the rules, add "Wrong format..."
 
       # Letters or numbers
@@ -106,9 +106,9 @@ class SitesController < ApplicationController
         end
       else
         if response.code == '200'
-          result = "Username taken."
+          result << "Username taken"
         else
-          result = "Available"
+          result << "Available"
         end
       end
       return result
@@ -118,7 +118,7 @@ class SitesController < ApplicationController
       # Letters, numbers, underscores only.
       # Max length: 15 characters
 
-      result = ""
+      result = []
 
       # Check if length is okay
       too_short_or_long = (name.length > 15) # Must be a certain length.
@@ -145,9 +145,9 @@ class SitesController < ApplicationController
       else
         response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
         if ['200', '301', '302'].include? response.code
-          result = "Username taken."
+          result << "Username taken"
         else
-          result = "Available"
+          result << "Available"
         end
       end
       return result
@@ -156,7 +156,7 @@ class SitesController < ApplicationController
     def check_instagram(name)
       # Letters, numbers, periods, underscores only
       # Max length is 30
-      result = ""
+      result = []
 
       # Check if length is okay
       too_short_or_long = (name.length > 30) # Must be a certain length.
@@ -183,9 +183,9 @@ class SitesController < ApplicationController
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
 
         if ['200', '301', '302'].include? response.code
-          result = "Username taken."
+          result << "Username taken"
         else
-          result = "Available"
+          result << "Available"
         end
       end
       return result
@@ -193,7 +193,7 @@ class SitesController < ApplicationController
   
     def check_facebook(name)
 
-      result = ""
+      result = []
 
       # Check if length is okay
       too_short_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
@@ -236,16 +236,16 @@ class SitesController < ApplicationController
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
 
         if ['200', '301', '302'].include? response.code
-          result = "Username taken."
+          result << "Username taken"
         else
-          result = "Available"
+          result << "Available"
         end
       end
       return result
     end
   
     def check_bitbucket(name)
-      result = ""
+      result = []
       # if name violates any of the rules, add "Wrong format..."
 
       # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.

@@ -49,10 +49,18 @@
                 <i class="fa <%= value[:icon] %>"></i>
               </td>
               <td><%= key %></td>
-              <% if value[:result] == "Available" %>
-                <td style="color:green"><%= value[:result] %></td>
+              <% if value[:result][0] == "Available" %>
+                <td style="color:green"><%= value[:result][0] %></td>
               <% else %>
-                <td style="color:red"><%= value[:result] %></td>
+                <td style="color:red">
+                  <% value[:result].each do |i| %>
+                    <% if i == "Wrong format" or i == "Username taken" %>
+                      <p><%= i %></p>
+                    <% end %>
+                  <% end %>
+                  <ul>
+                  </ul>
+                </td>
               <% end %>
             </tr>
           <% end %>
