@@ -33,7 +33,7 @@
     </div>
     <div class="col-sm-6">
       <!-- <h3>Results</h3> -->
-      <table id="results" class="table table-condensed table-responsive borderless">
+      <table id="results" class="table table-condensed table-responsive ">
         <!-- <thead>
           <tr>
             <th>Icon</th>
@@ -42,7 +42,7 @@
           </tr>
         </thead> -->
         <tbody>
-          <% @results.each do |key, value| %>
+          <% @results.sort().each do |key, value| %>
             <tr>
               <td>
                 <!-- <span class="glyphicon glyphicon-github" aria-hidden="true"></span> -->
@@ -50,17 +50,17 @@
               </td>
               <td><%= key %></td>
               <% print "value = #{value}" %>
-              <% if value[:result][0] == "Available" %>
+              <% if value[:result][0].start_with? "Available" %>
                 <td style="color:green"><%= value[:result][0] %></td>
               <% else %>
                 <td style="color:red">
-                  <% value[:result].each do |i| %>
-                    <% if i == "Wrong format" or i == "Username taken" %>
-                      <p><%= i %></p>
-                    <% end %>
+                  <% if value[:result][0] != "" %>
+                    <ul>
+                      <% value[:result].sort().each do |i| %>
+                        <li><%= i %></li>
+                      <% end %>
+                    </ul>
                   <% end %>
-                  <ul>
-                  </ul>
                 </td>
               <% end %>
             </tr>

@@ -20,8 +20,8 @@ class SitesController < ApplicationController
         LinkedIn: {icon: "fa-linkedin", result: [""]},
         Twitter: {icon: "fa-twitter", result: [""]},
         Instagram: {icon: "fa-instagram", result: [""]},
-        Facebook: {icon: "fa-facebook", result: [""]},
-        Bitbucket: {icon: "fa-bitbucket", result: [""]}
+        StackExchange: {icon: "fa-stack-overflow", result: [""]},
+        Facebook: {icon: "fa-facebook", result: [""]}
       }
     # If form field is not blank, validate it per each site's rules to populate each row in the table.
     else
@@ -30,8 +30,8 @@ class SitesController < ApplicationController
         LinkedIn: {icon: "fa-linkedin", result: check_linkedin(@name)},
         Twitter: {icon: "fa-twitter", result: check_twitter(@name)},
         Instagram: {icon: "fa-instagram", result: check_instagram(@name)},
-        Facebook: {icon: "fa-facebook", result: check_facebook(@name)},
-        Bitbucket: {icon: "fa-bitbucket", result: check_bitbucket(@name)}
+        StackExchange: {icon: "fa-stack-overflow", result: ["Available (doesn't have to be unique)!"]},
+        Facebook: {icon: "fa-facebook", result: check_facebook(@name)}
       }
     end
 
@@ -65,7 +65,7 @@ class SitesController < ApplicationController
 
       # Print errors for violated rules:
       if too_short_or_long or bookend_hyphen or non_alphanum_or_hyphen or consecutive_hypens
-        result << "Wrong format."
+        # result << "Wrong format."
         if too_short_or_long
           result << " Must be between 1 and 39 chars."
         end
@@ -83,7 +83,7 @@ class SitesController < ApplicationController
         if ['200', '301', '302'].include? response.code
           result << "Username taken"
         else
-          result << "Available"
+          result << "Available!"
         end
       end
 
@@ -100,7 +100,7 @@ class SitesController < ApplicationController
 
       
       if too_short_or_long
-        result << "Wrong format."
+        # result << "Wrong format."
         if too_short_or_long
           result << " Must be between 5 and 30 chars."
         end
@@ -108,7 +108,7 @@ class SitesController < ApplicationController
         if response.code == '200'
           result << "Username taken"
         else
-          result << "Available"
+          result << "Available!"
         end
       end
       return result
@@ -135,7 +135,7 @@ class SitesController < ApplicationController
 
       # Create result string based on rule checks
       if too_short_or_long or non_alphanum_or_underscore
-        result << "Wrong format."
+        # result << "Wrong format."
         if too_short_or_long
           result << " Must be less than 16 characters."
         end
@@ -147,7 +147,7 @@ class SitesController < ApplicationController
         if ['200', '301', '302'].include? response.code
           result << "Username taken"
         else
-          result << "Available"
+          result << "Available!"
         end
       end
       return result
@@ -172,7 +172,7 @@ class SitesController < ApplicationController
 
       # Create result string based on rule checks
       if too_short_or_long or non_alphanum_or_underscore_or_period
-        result << "Wrong format."
+        # result << "Wrong format."
         if too_short_or_long
           result << " Must be less than 16 characters."
         end
@@ -185,7 +185,7 @@ class SitesController < ApplicationController
         if ['200', '301', '302'].include? response.code
           result << "Username taken"
         else
-          result << "Available"
+          result << "Available!"
         end
       end
       return result
@@ -207,7 +207,7 @@ class SitesController < ApplicationController
         non_alphanum_or_period = true
       end
 
-      # Check if alphanumeric/undercores/periods only
+      # Check to make sure standard extensions not includedß
       extension_regex = /\.com|\.net|\.gov|\.io/
       regex_result = extension_regex =~ name
       print " fb regex_result = #{regex_result}"
@@ -220,7 +220,7 @@ class SitesController < ApplicationController
 
       # Create result string based on rule checks
       if too_short_or_long or non_alphanum_or_period or non_extension
-        result << "Wrong format."
+        # result << "Wrong format."
         if too_short_or_long
           result << " Must be between 5 and 16 characters long."
         end
@@ -238,27 +238,10 @@ class SitesController < ApplicationController
         if ['200', '301', '302'].include? response.code
           result << "Username taken"
         else
-          result << "Available"
+          result << "Available!"
         end
       end
       return result
     end
   
-    def check_bitbucket(name)
-      result = []
-      # if name violates any of the rules, add "Wrong format..."
-
-      # Limit - 30 chars. Username must contains only letters, numbers, periods and underscores.
-      # If > 30 chars...
-      # if name.length > 30
-      #   result << "Max length = 30 characters."
-      # end
-
-      # if contains anytihng else besides letters, numbers, periods, underscores...
-
-      response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
-      result = []
-      return result
-    end
-
 end
