@@ -81,7 +81,7 @@ class SitesController < ApplicationController
       else
         response = Net::HTTP.get_response(URI.parse("https://github.com/#{name}"))
         if ['200', '301', '302'].include? response.code
-          result = "Username taken"
+          result = "Username taken."
         else
           result = "Available"
         end
@@ -106,7 +106,7 @@ class SitesController < ApplicationController
         end
       else
         if response.code == '200'
-          result = "Username taken"
+          result = "Username taken."
         else
           result = "Available"
         end
@@ -145,7 +145,7 @@ class SitesController < ApplicationController
       else
         response = Net::HTTP.get_response(URI.parse("https://twitter.com/#{name}"))
         if ['200', '301', '302'].include? response.code
-          result = "Username taken"
+          result = "Username taken."
         else
           result = "Available"
         end
@@ -183,7 +183,7 @@ class SitesController < ApplicationController
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
 
         if ['200', '301', '302'].include? response.code
-          result = "Username taken"
+          result = "Username taken."
         else
           result = "Available"
         end
@@ -236,7 +236,7 @@ class SitesController < ApplicationController
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
 
         if ['200', '301', '302'].include? response.code
-          result = "Username taken"
+          result = "Username taken."
         else
           result = "Available"
         end
