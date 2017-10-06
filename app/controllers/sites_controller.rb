@@ -181,8 +181,8 @@ class SitesController < ApplicationController
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
-
-        if ['200', '301', '302'].include? response.code
+        print "Instagram response.code = #{response.code}"
+        if ['200', '302'].include? response.code
           result << "Username taken"
         else
           result << "Available!"
@@ -233,8 +233,8 @@ class SitesController < ApplicationController
           result << " Cannot contain common extensions like '.com', '.net', etc."
         end
       else
-        response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
-
+        response = Net::HTTP.get_response(URI.parse("https://www.facebook.com/#{name}"))
+        print "FB Response = #{response.code}"
         if ['200', '301', '302'].include? response.code
           result << "Username taken"
         else
