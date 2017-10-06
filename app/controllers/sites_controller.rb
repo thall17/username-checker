@@ -257,7 +257,7 @@ class SitesController < ApplicationController
       # if contains anytihng else besides letters, numbers, periods, underscores...
 
       response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}/"))
-      result = response
+      result = []
       return result
     end
 

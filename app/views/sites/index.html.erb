@@ -49,6 +49,7 @@
                 <i class="fa <%= value[:icon] %>"></i>
               </td>
               <td><%= key %></td>
+              <% print "value = #{value}" %>
               <% if value[:result][0] == "Available" %>
                 <td style="color:green"><%= value[:result][0] %></td>
               <% else %>
