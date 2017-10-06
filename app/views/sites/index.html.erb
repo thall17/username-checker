@@ -51,15 +51,15 @@
               <td><%= key %></td>
               <% print "value = #{value}" %>
               <% if value[:result][0].start_with? "Available" %>
-                <td style="color:green"><%= value[:result][0] %></td>
+                <td style="color:green">
+                  <p><%= value[:result][0] %></p>
+                </td>
               <% else %>
                 <td style="color:red">
                   <% if value[:result][0] != "" %>
-                    <ul>
-                      <% value[:result].sort().each do |i| %>
-                        <li><%= i %></li>
-                      <% end %>
-                    </ul>
+                    <% value[:result].sort().each do |i| %>
+                      <p><%= i %></p
+                    <% end %>
                   <% end %>
                 </td>
               <% end %>
