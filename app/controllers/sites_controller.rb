@@ -181,7 +181,7 @@ class SitesController < ApplicationController
         end
       else
         response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
-        print "Instagram response.code = #{response.code}"
+        print "Instagram response.messsage = #{response.message}"
         if ['200', '302'].include? response.code
           result << "Username taken"
         else
