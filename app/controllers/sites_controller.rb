@@ -1,5 +1,7 @@
 require "net/http"
 require "uri"
+require 'open-uri'
+require 'nokogiri'
 
 class SitesController < ApplicationController
 
@@ -180,12 +182,12 @@ class SitesController < ApplicationController
           result << " Must only contain alphanumeric characters, underscores, and periods."
         end
       else
-        response = Net::HTTP.get_response(URI.parse("https://www.instagram.com/#{name}"))
-        print "Instagram response.messsage = #{response.message}"
-        if ['200', '302'].include? response.code
-          result << "Username taken"
-        else
+        doc = Nokogiri::HTML(open("https://www.instagram.com/#{name}"))
+        @doc = doc
+        if doc.to_s.include? "Sorry, this page isn't available."
           result << "Available!"
+        else
+          result << "Username taken"
         end
       end
       return result
