@@ -100,13 +100,21 @@ class SitesController < ApplicationController
       # if anything else...
       too_short_or_long = (name.length < 5 or name.length > 30) # Must be a certain length.
 
-      
       if too_short_or_long
-        # result << "Wrong format."
-        if too_short_or_long
-          result << " Must be between 5 and 30 chars."
-        end
+        result << " Must be between 5 and 30 chars."
       else
+        begin
+          file = open("https://www.linkedin.com/in/#{name}/")
+          doc = Nokogiri::HTML(file) do
+            result << "Username taken"
+          end
+        rescue OpenURI::HTTPError => e
+          if e.message == '404 Not Found'
+            result << "Available!"
+          else
+            raise e
+          end
+        end
         if response.code == '200'
           result << "Username taken"
         else
