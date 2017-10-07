@@ -182,12 +182,17 @@ class SitesController < ApplicationController
           result << " Must only contain alphanumeric characters, underscores, and periods."
         end
       else
-        doc = Nokogiri::HTML(open("https://www.instagram.com/#{name}"))
-        @doc = doc
-        if doc.to_s.include? "Sorry, this page isn't available."
-          result << "Available!"
-        else
-          result << "Username taken"
+        begin
+          file = open("https://www.instagram.com/#{name}/")
+          doc = Nokogiri::HTML(file) do
+            result << "Username taken"
+          end
+        rescue OpenURI::HTTPError => e
+          if e.message == '404 Not Found'
+            result << "Available!"
+          else
+            raise e
+          end
         end
       end
       return result
