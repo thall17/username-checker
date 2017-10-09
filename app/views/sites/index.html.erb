@@ -51,16 +51,19 @@
               </td>
               <td><%= key %></td>
               <% print "value = #{value}" %>
-              <% if value[:result][0].start_with? "Available" %>
-                <td style="color:green">
+              <% print "value[:result].length = #{value[:result].length}" %>
+
+
+              <% if value[:result].length == 0 %>
+                <td></td>
+              <% elsif value[:result][0].start_with? "Available" %>
+              <td class="table-success">
                   <p><%= value[:result][0] %></p>
                 </td>
               <% else %>
-                <td style="color:red">
-                  <% if value[:result][0] != "" %>
-                    <% value[:result].sort().each do |i| %>
-                      <p><%= i %></p
-                    <% end %>
+                <td class="table-danger">
+                  <% value[:result].sort().each do |i| %>
+                    <p><%= i %></p>
                   <% end %>
                 </td>
               <% end %>

@@ -18,12 +18,12 @@ class SitesController < ApplicationController
     # If form field is blank, don't return anything in the table (show an empty string).
     if @name == ""
       @results = { 
-        GitHub: {icon: "fa-github", result: [""]},
-        # LinkedIn: {icon: "fa-linkedin", result: [""]},
-        Twitter: {icon: "fa-twitter", result: [""]},
-        Instagram: {icon: "fa-instagram", result: [""]},
-        StackExchange: {icon: "fa-stack-overflow", result: [""]},
-        Facebook: {icon: "fa-facebook", result: [""]}
+        GitHub: {icon: "fa-github", result: []},
+        # LinkedIn: {icon: "fa-linkedin", result: []},
+        Twitter: {icon: "fa-twitter", result: []},
+        Instagram: {icon: "fa-instagram", result: []},
+        StackExchange: {icon: "fa-stack-overflow", result: []},
+        Facebook: {icon: "fa-facebook", result: []}
       }
     # If form field is not blank, validate it per each site's rules to populate each row in the table.
     else
