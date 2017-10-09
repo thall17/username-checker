@@ -5,9 +5,9 @@
 </style>
 <div class="container-fluid">
   <div class="row">
-    <p><%= @doc %></p>
-    <p><%= debug(params) %></p>
-    <p><%= @results %></p>
+    <!-- <p><#%= @doc %></p>
+    <p><#%= debug(params) %></p>
+    <p><#%= @results %></p> -->
   </div>
   <div class="row">
 
@@ -50,10 +50,6 @@
                 <i class="fa <%= value[:icon] %>"></i>
               </td>
               <td><%= key %></td>
-              <% print "value = #{value}" %>
-              <% print "value[:result].length = #{value[:result].length}" %>
-
-
               <% if value[:result].length == 0 %>
                 <td></td>
               <% elsif value[:result][0].start_with? "Available" %>
