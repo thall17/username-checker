@@ -19,7 +19,7 @@ class SitesController < ApplicationController
     if @name == ""
       @results = { 
         GitHub: {icon: "fa-github", result: [""]},
-        LinkedIn: {icon: "fa-linkedin", result: [""]},
+        # LinkedIn: {icon: "fa-linkedin", result: [""]},
         Twitter: {icon: "fa-twitter", result: [""]},
         Instagram: {icon: "fa-instagram", result: [""]},
         StackExchange: {icon: "fa-stack-overflow", result: [""]},
@@ -29,7 +29,7 @@ class SitesController < ApplicationController
     else
       @results = { 
         GitHub: {icon: "fa-github", result: check_github(@name)},
-        LinkedIn: {icon: "fa-linkedin", result: check_linkedin(@name)},
+        # LinkedIn: {icon: "fa-linkedin", result: check_linkedin(@name)},
         Twitter: {icon: "fa-twitter", result: check_twitter(@name)},
         Instagram: {icon: "fa-instagram", result: check_instagram(@name)},
         StackExchange: {icon: "fa-stack-overflow", result: ["Available (doesn't have to be unique)!"]},
