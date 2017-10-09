@@ -53,11 +53,15 @@
               <% if value[:result].length == 0 %>
                 <td></td>
               <% elsif value[:result][0].start_with? "Available" %>
-              <td class="table-success">
+                <td class="table-success">
+                  <p><%= value[:result][0] %></p>
+                </td>
+              <% elsif value[:result][0].start_with? "Username" %>
+                <td class="table-danger">
                   <p><%= value[:result][0] %></p>
                 </td>
               <% else %>
-                <td class="table-danger">
+                <td class="table-warning">
                   <% value[:result].sort().each do |i| %>
                     <p><%= i %></p>
                   <% end %>
