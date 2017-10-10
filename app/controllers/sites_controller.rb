@@ -237,7 +237,7 @@ class SitesController < ApplicationController
       if too_short_or_long or non_alphanum_or_period or non_extension
         # result << "Wrong format."
         if too_short_or_long
-          result << " Must be between 5 and 16 characters long."
+          result << " Must be between 5 and 30 characters long."
         end
         if non_alphanum_or_period
           print "HERE"
